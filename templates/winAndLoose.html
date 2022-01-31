@@ -1,0 +1,20 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+	{{define "win"}}
+	<div>
+		<p>Bravo !! Tu as trouvé le mot caché qui était : {{.WordToGuess}}</p>
+		<a href="/">Retour à l'accueil</a>
+	</div>
+	{{end}}
+	{{define "loose"}}
+	<div>
+		<p>Malheureusement tu n'as plus d'essais restant... Le mot caché était : {{.WordToGuess}}</p>
+		<a href="/">Retour à l'accueil</a>
+	</div>
+	{{end}}
+</body>
+</html>

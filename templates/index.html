@@ -9,27 +9,8 @@
 
 <body>
 <div>
-	{{if .Win}}
-	<div>
-		<p>Bravo !! Tu as trouvé le mot caché qui était : {{.WordToGuess}}</p>
-	</div>
-	{{else if .Loose}}
-	<div>
-		<p>Malheureusement tu n'as plus d'essais restant... Le mot caché était : {{.WordToGuess}}</p>
-	</div>
-	{{else}}
-	<div>
-		<p>Bienvenue dans le jeu du pendu version web !</p>
-		<p>Voilà le mot à trouver: {{.WordToGuess}}</p>
-		<p>Mot caché: {{.HiddenWord}}</p>
-		<form method="POST">
-			<input type="text" name="userinput"><br />
-			<input type="submit" value="Essayer cette lettre">
-		</form>
-		<p>Lettre essayé: {{.Proposition}}</p>
-		<p>Tentatives restantes: {{.Lives}}</p>
-	</div>
-	{{end}}
+	<p>Accueil</p>
+	<a href="/hangman">Jouer</a>
 </div>
 </body>
 
