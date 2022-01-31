@@ -1,18 +1,16 @@
-{{define "hangman"}}
-<html lang="fr">
-
-	<head>
-		<meta charset="UTF-8">
-		<link rel="stylesheet" href="static/index.css">
-		<title>HangMan Web</title>
-	</head>
+{{define "hangmanEasy"}}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
 	<body>
 		<div>
 			<div>
 				<p>Bienvenue dans le jeu du pendu version web !</p>
 				<p>Voilà le mot à trouver: {{.WordToGuess}}</p>
 				<p>Mot caché: {{.HiddenWord}}</p>
-				<form method="POST">
+				<form method="get">
 					<input type="text" name="userinput"><br />
 					<input type="submit" value="Essayer cette lettre">
 				</form>
@@ -21,9 +19,9 @@
 				<a href="/">Retour à l'accueil</a>
 			</div>
 			{{if .Win}}
-				{{template "win"}}
+			{{template "win"}}
 			{{else if .Loose}}
-				{{template "loose"}}
+			{{template "loose"}}
 			{{end}}
 		</div>
 	</body>

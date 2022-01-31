@@ -1,0 +1,6 @@
+banc
+cle
+coin
+eau
+lit
+mur
