@@ -1,0 +1,25 @@
+{{define "index"}}
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../css/index.css">
+	<title>HangMan Web</title>
+</head>
+
+<body>
+<div>
+	<div>
+		<p>Bienvenue dans le jeu du pendu version web !</p>
+		<p>Avant de commencer à jouer, merci de bien vouloir choisir un pseudo 😄</p>
+		<form method="POST">
+			<input type="text" name="pseudo"><br />
+			<input type="submit" value="Choisir ce pseudo">
+		</form>
+		<p>Votre pseudo actuel : {{.Pseudo}}</p>
+	</div>
+</div>
+</body>
+
+</html>
+{{end}}
