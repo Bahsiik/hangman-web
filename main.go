@@ -22,39 +22,23 @@ type Hangman struct {
 }
 
 var array []string
-var gameType string
-
-var user = Hangman{
-	Lives: 10,
-	Win:   false,
-	Loose: false,
-}
 
 func main() {
+	classic := Hangman{Lives: 10, Win: false, Loose: false, Files: "words.txt"}
+	classic.hangmanInit()
 	fmt.Println("server starting")
 	tmpl := template.Must(template.ParseGlob("templates/*.html"))
 	fs := http.FileServer(http.Dir("css"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		gameType = r.FormValue("gameType")
-		if gameType == "Jouer (normal)" {
-			user.Files = "words.txt"
-			user.hangmanInit()
-		} else if gameType == "Jouer (facile)" {
-			user.Files = "wordsEasy.txt"
-			user.hangmanInit()
-		}
 		tmpl.ExecuteTemplate(w, "index", "")
 	})
-
 	http.HandleFunc("/hangman", func(w http.ResponseWriter, r *http.Request) {
-		user.start(r)
-		tmpl.ExecuteTemplate(w, "hangman", user)
+		classic.start(r)
+		tmpl.ExecuteTemplate(w, "hangman", classic)
 	})
 	http.HandleFunc("/hangmanEasy", func(w http.ResponseWriter, r *http.Request) {
-
-		user.start(r)
-		tmpl.ExecuteTemplate(w, "hangmanEasy", user)
+		tmpl.ExecuteTemplate(w, "hangmanEasy", classic)
 	})
 	http.ListenAndServe(":80", nil)
 	fmt.Println("server closing")
