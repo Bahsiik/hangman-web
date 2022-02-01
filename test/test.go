@@ -11,7 +11,7 @@ func SimpleIndexHandler(w http.ResponseWriter, r *http.Request) {
 
 func HttpFileHandler(response http.ResponseWriter, request *http.Request) {
 	//fmt.Fprintf(w, "Hi from e %s!", r.URL.Path[1:])
-	http.ServeFile(response, request, "index.html")
+	http.ServeFile(response, request, "index.gohtml")
 }
 
 func main() {

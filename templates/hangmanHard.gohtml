@@ -8,6 +8,11 @@
 <body>
 <div>
   <div>
+    {{if .Win}}
+    {{template "win"}}
+    {{else if .Loose}}
+    {{template "loose"}}
+    {{else}}
     <p>Bienvenue dans le jeu du pendu version web !</p>
     <p>Voilà le mot à trouver: {{.WordToGuess}}</p>
     <p>Mot caché: {{.HiddenWord}}</p>
@@ -17,11 +22,8 @@
     </form>
     <p>Lettre essayé: {{.Proposition}}</p>
     <p>Tentatives restantes: {{.Lives}}</p>
+    <a href="/">Retour à l'accueil</a>
   </div>
-  {{if .Win}}
-  {{template "win"}}
-  {{else if .Loose}}
-  {{template "loose"}}
   {{end}}
 </div>
 </body>

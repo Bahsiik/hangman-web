@@ -24,17 +24,19 @@ type Hangman struct {
 var array []string
 
 func main() {
-	hard := Hangman{Lives: 10, Win: false, Loose: false, File: "wordsHard.txt"}
-	hard.hangmanInit()
 	easy := Hangman{Lives: 10, Win: false, Loose: false, File: "wordsEasy.txt"}
 	easy.hangmanInit()
+	hard := Hangman{Lives: 10, Win: false, Loose: false, File: "wordsHard.txt"}
+	hard.hangmanInit()
 	classic := Hangman{Lives: 10, Win: false, Loose: false, File: "words.txt"}
 	classic.hangmanInit()
 
 	fmt.Println("server starting")
-	tmpl := template.Must(template.ParseGlob("templates/*.html"))
+	tmpl := template.Must(template.ParseGlob("templates/*.gohtml"))
 	fs := http.FileServer(http.Dir("css"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
+	images := http.FileServer(http.Dir("/images/"))
+	http.Handle("/images/", http.StripPrefix("/images/", images))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		tmpl.ExecuteTemplate(w, "index", "")
 	})
