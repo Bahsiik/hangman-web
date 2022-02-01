@@ -35,7 +35,7 @@ func main() {
 	tmpl := template.Must(template.ParseGlob("templates/*.gohtml"))
 	fs := http.FileServer(http.Dir("css"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
-	images := http.FileServer(http.Dir("/images/"))
+	images := http.FileServer(http.Dir("images"))
 	http.Handle("/images/", http.StripPrefix("/images/", images))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		tmpl.ExecuteTemplate(w, "index", "")
