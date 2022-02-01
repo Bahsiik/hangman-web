@@ -24,10 +24,13 @@ type Hangman struct {
 var array []string
 
 func main() {
+	hard := Hangman{Lives: 10, Win: false, Loose: false, File: "wordsHard.txt"}
+	hard.hangmanInit()
 	easy := Hangman{Lives: 10, Win: false, Loose: false, File: "wordsEasy.txt"}
 	easy.hangmanInit()
 	classic := Hangman{Lives: 10, Win: false, Loose: false, File: "words.txt"}
 	classic.hangmanInit()
+
 	fmt.Println("server starting")
 	tmpl := template.Must(template.ParseGlob("templates/*.html"))
 	fs := http.FileServer(http.Dir("css"))
@@ -35,13 +38,17 @@ func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		tmpl.ExecuteTemplate(w, "index", "")
 	})
+	http.HandleFunc("/hangmanEasy", func(w http.ResponseWriter, r *http.Request) {
+		easy.start(r)
+		tmpl.ExecuteTemplate(w, "hangmanEasy", easy)
+	})
 	http.HandleFunc("/hangman", func(w http.ResponseWriter, r *http.Request) {
 		classic.start(r)
 		tmpl.ExecuteTemplate(w, "hangman", classic)
 	})
-	http.HandleFunc("/hangmanEasy", func(w http.ResponseWriter, r *http.Request) {
-		easy.start(r)
-		tmpl.ExecuteTemplate(w, "hangmanEasy", easy)
+	http.HandleFunc("/hangmanHard", func(w http.ResponseWriter, r *http.Request) {
+		hard.start(r)
+		tmpl.ExecuteTemplate(w, "hangmanHard", hard)
 	})
 	http.ListenAndServe(":80", nil)
 	fmt.Println("server closing")
