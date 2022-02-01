@@ -14,7 +14,7 @@ func hideToFindWord(word string) []string { //Programme pour créer le mot cach�
 }
 
 func (user *Hangman) hangmanInit() {
-	fileScanner := createScanner(user.Files)
+	fileScanner := createScanner(user.File)
 	array = getWords(fileScanner, array)
 	rand.Seed(time.Now().UnixNano()) //Initialisation de l'aléatoire
 	ran := rand.Intn(len(array))

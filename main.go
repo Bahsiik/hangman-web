@@ -18,13 +18,15 @@ type Hangman struct {
 	FoundLetters int
 	Win          bool
 	Loose        bool
-	Files        string
+	File         string
 }
 
 var array []string
 
 func main() {
-	classic := Hangman{Lives: 10, Win: false, Loose: false, Files: "words.txt"}
+	easy := Hangman{Lives: 10, Win: false, Loose: false, File: "wordsEasy.txt"}
+	easy.hangmanInit()
+	classic := Hangman{Lives: 10, Win: false, Loose: false, File: "words.txt"}
 	classic.hangmanInit()
 	fmt.Println("server starting")
 	tmpl := template.Must(template.ParseGlob("templates/*.html"))
@@ -38,7 +40,8 @@ func main() {
 		tmpl.ExecuteTemplate(w, "hangman", classic)
 	})
 	http.HandleFunc("/hangmanEasy", func(w http.ResponseWriter, r *http.Request) {
-		tmpl.ExecuteTemplate(w, "hangmanEasy", classic)
+		easy.start(r)
+		tmpl.ExecuteTemplate(w, "hangmanEasy", easy)
 	})
 	http.ListenAndServe(":80", nil)
 	fmt.Println("server closing")
@@ -51,8 +54,8 @@ func getWords(fileScanner *bufio.Scanner, array []string) []string { //Programme
 	return array
 }
 
-func createScanner(nomFichier string) *bufio.Scanner { //Programme de création d'un scanner
-	file, err := os.Open(nomFichier)
+func createScanner(fileName string) *bufio.Scanner { //Programme de création d'un scanner
+	file, err := os.Open(fileName)
 	if err != nil {
 		log.Fatalf("Error when opening file: %s", err)
 	}
