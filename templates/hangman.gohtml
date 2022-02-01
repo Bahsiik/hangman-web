@@ -8,9 +8,16 @@
 	<body>
 		<div>
 			{{if .Win}}
-				{{template "win"}}
+				<div>
+					<p>Bravo !! Tu as trouvé le mot caché qui était : {{.WordToGuess}}</p>
+					<a href="/">Retour à l'accueil</a>
+				</div>
 			{{else if .Loose}}
-				{{template "loose"}}
+				<div>
+					<p>Malheureusement tu n'as plus d'essais restant... Le mot caché était : {{.WordToGuess}}</p>
+					<img src="/images/hangman 0.png" alt="hangman">
+					<a href="/">Retour à l'accueil</a>
+				</div>
 			{{else}}
 			<div>
 				<p>Bienvenue dans le jeu du pendu version web !</p>

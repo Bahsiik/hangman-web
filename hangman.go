@@ -1,6 +1,7 @@
 package main
 
 import (
+	"math/rand"
 	"net/http"
 )
 
@@ -42,9 +43,7 @@ func livesChange(verifGoodProposition int, user *Hangman) {
 				user.Lives = 0
 			}
 		} else {
-			println("rien ne se passe...")
 		}
-		println("Not present in the word, ", user.Lives, " attempts remaining")
 	}
 }
 
@@ -61,6 +60,19 @@ func Win(user *Hangman) {
 	if user.FoundLetters == len(user.WordToGuess) {
 		user.Win = true
 	}
+}
+
+func (user *Hangman) showToFindLetters() int { //Choix des lettres affichées dès le début
+	lettersToDisplay := (len(user.HiddenWord) / 2) - 1
+	var displayedLetters int
+	for i := 0; i < lettersToDisplay; i++ {
+		index := rand.Intn(len(user.HiddenWord))
+		if user.HiddenWord[index] == "_" {
+			displayedLetters++
+		}
+		user.HiddenWord[index] = string(user.WordToGuess[index])
+	}
+	return displayedLetters
 }
 
 func isPropTrue(user *Hangman, verifGoodProposition int) int {

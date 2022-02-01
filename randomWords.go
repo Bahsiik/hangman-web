@@ -20,4 +20,5 @@ func (user *Hangman) hangmanInit() {
 	ran := rand.Intn(len(array))
 	user.WordToGuess = array[ran]
 	user.HiddenWord = hideToFindWord(user.WordToGuess)
+	user.FoundLetters = user.showToFindLetters()
 }

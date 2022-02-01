@@ -9,7 +9,10 @@
 <div>
   <div>
     {{if .Win}}
-    {{template "win"}}
+    <div>
+      <p>Bravo !! Tu as trouvé le mot caché qui était : {{.WordToGuess}}</p>
+      <a href="/">Retour à l'accueil</a>
+    </div>
     {{else if .Loose}}
     {{template "loose"}}
     {{else}}
