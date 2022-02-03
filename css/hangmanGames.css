@@ -9,53 +9,50 @@ body {
     background-color: #271927;
 }
 
-.title p {
-    margin: 5vh;
+.win {
+    margin: 20vh 0 15vh 0;
+}
+
+.win p {
+    margin: 7vh;
     text-align: center;
     font-size: 3em;
 }
 
-.rules {
-    margin: 5vh;
+.loose {
+    margin: 20vh 0 15vh 0;
 }
 
-.rules p {
-    font-size: 1.3em;
-}
-
-.rules .list p {
-    margin: 2vh;
-    font-size: 1.1em
-}
-
-.condition {
-    display: flex;
-    margin: 5vh;
-}
-
-.condition div {
-    margin-right: 5vh;
-    font-size: 1.1em
-}
-
-.condition .win p {
-    color: aqua;
-}
-
-.condition .loose p {
-    color: orangered;
-}
-
-#txt{
+.loose p {
     margin: 7vh;
     text-align: center;
-    font-size: 1.1em
+    font-size: 1.1em;
 }
 
-.games {
+.loose .hang {
     display: flex;
     justify-content: space-around;
+}
+
+.game {
+    margin: 4vh;
+}
+
+.game * {
+    margin: 2vh;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+.game input {
+    color: black;
+}
+
+.stateBtn {
+    display: flex;
     margin: 5vh;
+    justify-content: space-around;
+    font-size: 2em;
 }
 
 .btn {
@@ -96,10 +93,4 @@ body {
 .btn:hover::after {
     opacity: 1;
     transform: scale(1,1);
-}
-
-.creators {
-    position: absolute;
-    bottom: 0;
-    right: 1%;
 }

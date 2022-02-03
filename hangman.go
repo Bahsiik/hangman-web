@@ -1,9 +1,20 @@
 package main
 
 import (
-	"math/rand"
 	"net/http"
 )
+
+type Hangman struct {
+	WordToGuess  string
+	HiddenWord   []string
+	UserInput    string
+	Lives        int
+	Proposition  []string
+	FoundLetters int
+	Win          bool
+	Loose        bool
+	File         string
+}
 
 func (user *Hangman) start(r *http.Request) { //Programme de lancement du jeu
 	verifLettersUsed := 0
@@ -18,7 +29,7 @@ func (user *Hangman) start(r *http.Request) { //Programme de lancement du jeu
 	println()
 }
 
-func alreadyUsed(user *Hangman, verifLettersUsed int) int {
+func alreadyUsed(user *Hangman, verifLettersUsed int) int { // Fonction pour vérifier si la proposition a déjà été faite
 	for i := range user.Proposition {
 		if user.UserInput == user.Proposition[i] {
 			verifLettersUsed++
@@ -27,14 +38,14 @@ func alreadyUsed(user *Hangman, verifLettersUsed int) int {
 	return verifLettersUsed
 }
 
-func addProp(verifLettersUsed int, user *Hangman) {
-	if verifLettersUsed == 0 { //Ajouts aux propositions passées
+func addProp(verifLettersUsed int, user *Hangman) { //Ajouts de la proposition à la liste des propositions
+	if verifLettersUsed == 0 {
 		user.Proposition = append(user.Proposition, user.UserInput)
 	}
 }
 
-func livesChange(verifGoodProposition int, user *Hangman) {
-	if verifGoodProposition == len(user.WordToGuess) { //Modification du compteur d'essai en cas d'échec
+func livesChange(verifGoodProposition int, user *Hangman) { //Modification du compteur d'essai en cas d'échec
+	if verifGoodProposition == len(user.WordToGuess) {
 		if len(user.UserInput) == 1 {
 			user.Lives--
 		} else if len(user.UserInput) > 1 {
@@ -47,14 +58,14 @@ func livesChange(verifGoodProposition int, user *Hangman) {
 	}
 }
 
-func Loose(user *Hangman) {
+func Loose(user *Hangman) { // Fonction pour activer la défaite
 	if user.Lives <= 0 {
 		user.Loose = true
 	}
 }
 
-func Win(user *Hangman) {
-	if user.UserInput == user.WordToGuess { //Vérification si le mot a été trouvé (via une proposition de mot)
+func Win(user *Hangman) { //Vérification si le mot a été trouvé (via une proposition de mot)
+	if user.UserInput == user.WordToGuess {
 		user.Win = true
 	}
 	if user.FoundLetters == len(user.WordToGuess) {
@@ -62,21 +73,8 @@ func Win(user *Hangman) {
 	}
 }
 
-func (user *Hangman) showToFindLetters() int { //Choix des lettres affichées dès le début
-	lettersToDisplay := (len(user.HiddenWord) / 2) - 1
-	var displayedLetters int
-	for i := 0; i < lettersToDisplay; i++ {
-		index := rand.Intn(len(user.HiddenWord))
-		if user.HiddenWord[index] == "_" {
-			displayedLetters++
-		}
-		user.HiddenWord[index] = string(user.WordToGuess[index])
-	}
-	return displayedLetters
-}
-
-func isPropTrue(user *Hangman, verifGoodProposition int) int {
-	for i := 0; i < len(user.WordToGuess); i++ { //Vérification si la lettre est présente dans le mot
+func isPropTrue(user *Hangman, verifGoodProposition int) int { //Vérification si la lettre proposée est présente dans le mot
+	for i := 0; i < len(user.WordToGuess); i++ {
 		if user.UserInput == string(user.WordToGuess[i]) && string(user.HiddenWord[i]) == "_" {
 			user.HiddenWord[i] = string(user.WordToGuess[i])
 			user.FoundLetters++

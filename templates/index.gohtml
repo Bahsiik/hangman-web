@@ -1,21 +1,53 @@
 {{define "index"}}
-<html lang="fr">
-
-<head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="static/index.css">
-	<title>HangMan Web</title>
-</head>
-
-<body>
-<div>
-	<p>Accueil</p>
-	<a href="/hangman">Jouer (normal)</a>
-	<a href="/hangmanEasy">Jouer (facile)</a>
-	<a href="/hangmanHard">Jouer (difficile)</a>
-
-</div>
-</body>
-
-</html>
+    <html lang="fr">
+        <head>
+            <meta charset="UTF-8">
+            <link rel="stylesheet" href="static/index.css">
+            <link rel="icon" href="/images/icone.png">
+            <title>HangMan Web</title>
+        </head>
+        <body>
+            <div>
+                <div class="title">
+                    <p>Bienvenue dans le jeu Hangman Web !</p>
+                </div>
+                <div class="rules">
+                    <p>Les règles sont les suivantes :</p>
+                    <div class="list">
+                        <p>- Vous allez devoir trouver un mot caché <br>
+                            - Vous pouvez essayer de le trouver lettre par lettre, ou directement en tentant un mot
+                            entier<br>
+                            - Vous avez un total de 10 essais<br>
+                            - Si la lettre essayée n'est pas dans le mot, vous perdez 1 essai<br>
+                            - Si le mot que vous essayez n'est pas le bon, vous perdez 2 essais<br>
+                            - Certaines lettres sont déjà affichées, cependant elles peuvent se trouver à d'autres endroits
+                            dans
+                            le mot, n'oubliez pas de les essayer !</p>
+                    </div>
+                </div>
+                <div class="condition">
+                    <div class="win">
+                        <p>Conditions de victoire :<br>
+                            Le mot caché est totalement découvert</p>
+                    </div>
+                    <div class="loose">
+                        <p>Conditions de défaite :<br>
+                            Le nombre de vos essais tombe à 0, vos amis seront alors pendus...</p>
+                    </div>
+                </div>
+                <p id="txt">Vous avez à votre disposition trois niveaux de difficulté, et vous n'avez qu'une seule chance
+                    pour
+                    chacun, donc faites attention !!</p>
+                <div class="games">
+                    <a class="btn" href="/hangmanEasy">Sauver Noupie (Mode Facile)</a>
+                    <a class="btn" href="/hangman">Sauver Lucas (Mode Normal)</a>
+                    <a class="btn" href="/hangmanHard">Sauver Alan (Mode Difficile)</a>
+                </div>
+                <div class="creators">
+                    <p>MISTRAL Olivier</p>
+                    <p>MARTHELY Davy</p>
+                </div>
+            </div>
+        </body>
+    </html>
 {{end}}

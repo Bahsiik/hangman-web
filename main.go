@@ -9,27 +9,13 @@ import (
 	"os"
 )
 
-type Hangman struct {
-	WordToGuess  string
-	HiddenWord   []string
-	UserInput    string
-	Lives        int
-	Proposition  []string
-	FoundLetters int
-	Win          bool
-	Loose        bool
-	File         string
-}
-
-var array []string
-
 func main() {
 	easy := Hangman{Lives: 10, Win: false, Loose: false, File: "wordsEasy.txt"}
-	easy.hangmanInit()
+	easy.getRandomWord()
 	hard := Hangman{Lives: 10, Win: false, Loose: false, File: "wordsHard.txt"}
-	hard.hangmanInit()
+	hard.getRandomWord()
 	classic := Hangman{Lives: 10, Win: false, Loose: false, File: "words.txt"}
-	classic.hangmanInit()
+	classic.getRandomWord()
 
 	fmt.Println("server starting")
 	tmpl := template.Must(template.ParseGlob("templates/*.gohtml"))
@@ -53,7 +39,6 @@ func main() {
 		tmpl.ExecuteTemplate(w, "hangmanHard", hard)
 	})
 	http.ListenAndServe(":80", nil)
-	fmt.Println("server closing")
 }
 
 func getWords(fileScanner *bufio.Scanner, array []string) []string { //Programme de récupération des mots du fichier txt
