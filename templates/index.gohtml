@@ -1,21 +1,33 @@
 {{define "index"}}
-<html lang="fr">
-
-<head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="static/index.css">
-	<title>HangMan Web</title>
-</head>
-
-<body>
-<div>
-	<p>Accueil</p>
-	<a href="/hangman">Jouer (normal)</a>
-	<a href="/hangmanEasy">Jouer (facile)</a>
-	<a href="/hangmanHard">Jouer (difficile)</a>
-
-</div>
-</body>
-
-</html>
+    <html lang="fr">
+        <head>
+            <meta charset="UTF-8">
+            <link rel="stylesheet" href="static/index.css">
+            <title>HangMan Web</title>
+        </head>
+        <body>
+            <div>
+                <p>Bienvenue dans le jeu Hangman Web !</p>
+                <p>Les règles sont les suivantes :</p>
+                <p>- Vous allez devoir trouver un mot caché</p>
+                <p>- Vous pouvez essayer de le trouver lettre par lettre, ou directement en tentant un mot entier</p>
+                <p>- Vous avez un total de 10 essais</p>
+                <p>- Si la lettre essayée n'est pas dans le mot, vous perdez 1 essai</p>
+                <p>- Si le mot que vous essayez n'est pas le bon, vous perdez 2 essais</p>
+                <p>- Certaines lettres sont déjà affichées, cependant elles peuvent se trouver à d'autres endroits dans
+                    le mot, n'oubliez pas de les essayer !</p>
+                <p>Conditions de victoire : </p>
+                <p>Le mot caché est totalement découvert</p>
+                <p>Conditions de défaite : </p>
+                <p>Le nombre de vos essais tombe à 0, vos amis seront alors pendus...</p>
+                <p>Vous avez à votre disposition trois niveaux de difficulté, et vous n'avez qu'une seule chance pour
+                    chacun, donc faites attention !!</p>
+                <a href="/hangmanEasy">Sauver Noupie (Mode Facile)</a>
+                <a href="/hangman">Sauver Lucas (Mode Normal)</a>
+                <a href="/hangmanHard">Sauver Alan (Mode Difficile)</a>
+                <p>MISTRAL Olivier</p>
+                <p>MARTHELY Davy</p>
+            </div>
+        </body>
+    </html>
 {{end}}
