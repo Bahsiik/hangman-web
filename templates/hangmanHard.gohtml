@@ -1,35 +1,42 @@
 {{define "hangmanHard"}}
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="static/index.css">
-  <title>HangMan Web</title>
-</head>
-<body>
-<div>
-  <div>
-    {{if .Win}}
-    <div>
-      <p>Bravo !! Tu as trouvé le mot caché qui était : {{.WordToGuess}}</p>
-      <a href="/">Retour à l'accueil</a>
-    </div>
-    {{else if .Loose}}
-    {{template "loose"}}
-    {{else}}
-    <p>Bienvenue dans le jeu du pendu version web !</p>
-    <p>Voilà le mot à trouver: {{.WordToGuess}}</p>
-    <p>Mot caché: {{.HiddenWord}}</p>
-    <form method="POST">
-      <input type="text" name="userinput"><br />
-      <input type="submit" value="Essayer cette lettre">
-    </form>
-    <p>Lettre essayé: {{.Proposition}}</p>
-    <p>Tentatives restantes: {{.Lives}}</p>
-    <a href="/">Retour à l'accueil</a>
-    <img src="/images/hangman {{.Lives}}.png" alt="hangman">
-  </div>
-  {{end}}
-</div>
-</body>
-</html>
+    <html lang="fr">
+        <head>
+            <meta charset="UTF-8">
+            <link rel="stylesheet" href="static/index.css">
+            <title>HangMan Web</title>
+        </head>
+        <body>
+            <div>
+                <div>
+                    {{if .Win}}
+                    <div>
+                      <p>Bravo, tu as trouvé le mot caché qui était : {{.WordToGuess}}</p>
+                      <p>Si ce n'est pas déjà fais, allez vite sauver le reste de vos amis !</p>
+                        <a href="/">Retour à l'accueil</a>
+                    </div>
+                    {{else if .Loose}}
+                    <div>
+                      <p>Malheureusement tu n'as plus d'essais restants... Votre ami Alan est mort... Le mot caché
+                        était : {{.WordToGuess}}</p>
+                      <p>Dépêchez vous, vous avez peut-être encore une chance de sauver vos autres amis !</p>
+                        <img src="/images/hangman 0.png" alt="hangman">
+                        <a href="/">Retour à l'accueil</a>
+                    </div>
+                    {{else}}
+                    <p>Bienvenue dans le jeu du pendu version web !</p>
+                    <p>Voilà le mot à trouver: {{.WordToGuess}}</p>
+                    <p>Mot caché: {{.HiddenWord}}</p>
+                    <form method="POST">
+                        <input type="text" name="userinput"><br/>
+                        <input type="submit" value="Essayer cette lettre">
+                    </form>
+                    <p>Lettre essayé: {{.Proposition}}</p>
+                    <p>Tentatives restantes: {{.Lives}}</p>
+                    <a href="/">Retour à l'accueil</a>
+                    <img src="/images/hangman {{.Lives}}.png" alt="hangman">
+                </div>
+                {{end}}
+            </div>
+        </body>
+    </html>
 {{end}}
