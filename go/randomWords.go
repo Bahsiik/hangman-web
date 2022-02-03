@@ -5,9 +5,8 @@ import (
 	"time"
 )
 
-var array []string
-
 func (user *Hangman) getRandomWord() { //Choix du mot aléatoirement dans le dossier .txt
+	var array []string
 	fileScanner := createScanner(user.File)
 	array = getWords(fileScanner, array)
 	rand.Seed(time.Now().UnixNano()) //Initialisation de l'aléatoire

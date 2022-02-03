@@ -10,12 +10,12 @@ import (
 )
 
 func main() {
-	easy := Hangman{Lives: 10, Win: false, Loose: false, File: "wordsEasy.txt"}
+	easy := Hangman{Lives: 10, Win: false, Loose: false, File: "./text/easy.txt"}
 	easy.getRandomWord()
-	hard := Hangman{Lives: 10, Win: false, Loose: false, File: "wordsHard.txt"}
+	hard := Hangman{Lives: 10, Win: false, Loose: false, File: "./text/hard.txt"}
 	hard.getRandomWord()
-	classic := Hangman{Lives: 10, Win: false, Loose: false, File: "words.txt"}
-	classic.getRandomWord()
+	normal := Hangman{Lives: 10, Win: false, Loose: false, File: "./text/normal.txt"}
+	normal.getRandomWord()
 
 	fmt.Println("server starting")
 	tmpl := template.Must(template.ParseGlob("templates/*.gohtml"))
@@ -31,8 +31,8 @@ func main() {
 		tmpl.ExecuteTemplate(w, "hangmanEasy", easy)
 	})
 	http.HandleFunc("/hangman", func(w http.ResponseWriter, r *http.Request) {
-		classic.start(r)
-		tmpl.ExecuteTemplate(w, "hangman", classic)
+		normal.start(r)
+		tmpl.ExecuteTemplate(w, "hangman", normal)
 	})
 	http.HandleFunc("/hangmanHard", func(w http.ResponseWriter, r *http.Request) {
 		hard.start(r)
