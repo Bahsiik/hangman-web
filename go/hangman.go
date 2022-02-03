@@ -16,6 +16,10 @@ type Hangman struct {
 	File         string
 }
 
+var easy = Hangman{}
+var hard = Hangman{}
+var normal = Hangman{}
+
 func (user *Hangman) start(r *http.Request) { //Programme de lancement du jeu
 	verifLettersUsed := 0
 	verifGoodProposition := 0

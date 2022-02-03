@@ -1,7 +1,10 @@
 package main
 
 import (
+	"bufio"
+	"log"
 	"math/rand"
+	"os"
 	"time"
 )
 
@@ -35,4 +38,20 @@ func (user *Hangman) showToFindLetters() int { //Choix des lettres affichées d�
 		user.HiddenWord[index] = string(user.WordToGuess[index])
 	}
 	return displayedLetters
+}
+
+func getWords(fileScanner *bufio.Scanner, array []string) []string { //Programme de récupération des mots du fichier txt
+	for fileScanner.Scan() {
+		array = append(array, fileScanner.Text())
+	}
+	return array
+}
+
+func createScanner(fileName string) *bufio.Scanner { //Programme de création d'un scanner
+	file, err := os.Open(fileName)
+	if err != nil {
+		log.Fatalf("Error when opening file: %s", err)
+	}
+	fileScanner := bufio.NewScanner(file)
+	return fileScanner
 }
