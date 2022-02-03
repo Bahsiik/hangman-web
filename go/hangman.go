@@ -4,6 +4,7 @@ import (
 	"net/http"
 )
 
+// Hangman Structure nécessaire au déroulement du jeu
 type Hangman struct {
 	WordToGuess  string
 	HiddenWord   []string
@@ -16,40 +17,67 @@ type Hangman struct {
 	File         string
 }
 
+// Initialisation des différentes variables de jeu pour chaque difficulté
 var easy = Hangman{}
 var hard = Hangman{}
 var normal = Hangman{}
 
+// Lancement du jeu Hangman
 func (user *Hangman) start(r *http.Request) { //Programme de lancement du jeu
-	verifLettersUsed := 0
-	verifGoodProposition := 0
+	verifyLettersUsed := 0
+	verifyGoodProposition := 0
 	user.UserInput = r.FormValue("userinput")
-	verifLettersUsed = alreadyUsed(user, verifLettersUsed)
-	addProp(verifLettersUsed, user)
-	verifGoodProposition = isPropTrue(user, verifGoodProposition)
-	Win(user)
-	livesChange(verifGoodProposition, user)
-	Loose(user)
-	println()
+	verifyLettersUsed = alreadyUsed(user, verifyLettersUsed)
+	addProp(verifyLettersUsed, user)
+	verifyGoodProposition = isPropTrue(user, verifyGoodProposition)
+	win(user)
+	livesChange(verifyGoodProposition, user)
+	loose(user)
 }
 
-func alreadyUsed(user *Hangman, verifLettersUsed int) int { // Fonction pour vérifier si la proposition a déjà été faite
+// Vérification si la proposition effectuée a déjà été faite ou non
+func alreadyUsed(user *Hangman, verifyLettersUsed int) int {
 	for i := range user.Proposition {
 		if user.UserInput == user.Proposition[i] {
-			verifLettersUsed++
+			verifyLettersUsed++
 		}
 	}
-	return verifLettersUsed
+	return verifyLettersUsed
 }
 
-func addProp(verifLettersUsed int, user *Hangman) { //Ajouts de la proposition à la liste des propositions
-	if verifLettersUsed == 0 {
+// Ajout de la proposition à la liste des propositions passées
+func addProp(verifyLettersUsed int, user *Hangman) {
+	if verifyLettersUsed == 0 {
 		user.Proposition = append(user.Proposition, user.UserInput)
 	}
 }
 
-func livesChange(verifGoodProposition int, user *Hangman) { //Modification du compteur d'essai en cas d'échec
-	if verifGoodProposition == len(user.WordToGuess) {
+// Vérification si la lettre proposée est présente dans le mot
+func isPropTrue(user *Hangman, verifyGoodProposition int) int {
+	for i := 0; i < len(user.WordToGuess); i++ {
+		if user.UserInput == string(user.WordToGuess[i]) && string(user.HiddenWord[i]) == "_" {
+			user.HiddenWord[i] = string(user.WordToGuess[i])
+			user.FoundLetters++
+		} else {
+			verifyGoodProposition++
+		}
+	}
+	return verifyGoodProposition
+}
+
+// Validation de la victoire du joueur
+func win(user *Hangman) {
+	if user.UserInput == user.WordToGuess {
+		user.Win = true
+	}
+	if user.FoundLetters == len(user.WordToGuess) {
+		user.Win = true
+	}
+}
+
+// Modification du compteur d'essai si la proposition est fausse
+func livesChange(verifyGoodProposition int, user *Hangman) {
+	if verifyGoodProposition == len(user.WordToGuess) {
 		if len(user.UserInput) == 1 {
 			user.Lives--
 		} else if len(user.UserInput) > 1 {
@@ -62,29 +90,9 @@ func livesChange(verifGoodProposition int, user *Hangman) { //Modification du co
 	}
 }
 
-func Loose(user *Hangman) { // Fonction pour activer la défaite
+// Validation de la défaite du joueur
+func loose(user *Hangman) {
 	if user.Lives <= 0 {
 		user.Loose = true
 	}
-}
-
-func Win(user *Hangman) { //Vérification si le mot a été trouvé (via une proposition de mot)
-	if user.UserInput == user.WordToGuess {
-		user.Win = true
-	}
-	if user.FoundLetters == len(user.WordToGuess) {
-		user.Win = true
-	}
-}
-
-func isPropTrue(user *Hangman, verifGoodProposition int) int { //Vérification si la lettre proposée est présente dans le mot
-	for i := 0; i < len(user.WordToGuess); i++ {
-		if user.UserInput == string(user.WordToGuess[i]) && string(user.HiddenWord[i]) == "_" {
-			user.HiddenWord[i] = string(user.WordToGuess[i])
-			user.FoundLetters++
-		} else {
-			verifGoodProposition++
-		}
-	}
-	return verifGoodProposition
 }

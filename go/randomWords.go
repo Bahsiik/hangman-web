@@ -8,17 +8,37 @@ import (
 	"time"
 )
 
-func (user *Hangman) getRandomWord() { //Choix du mot aléatoirement dans le dossier .txt
+//Choix du mot aléatoirement dans le dossier .txt
+func (user *Hangman) getRandomWord() {
 	var array []string
 	fileScanner := createScanner(user.File)
 	array = getWords(fileScanner, array)
-	rand.Seed(time.Now().UnixNano()) //Initialisation de l'aléatoire
+	rand.Seed(time.Now().UnixNano())
 	ran := rand.Intn(len(array))
 	user.WordToGuess = array[ran]
 	user.HiddenWord = hideToFindWord(user.WordToGuess)
 	user.FoundLetters = user.showToFindLetters()
 }
 
+// Création du scanner pour lire les fichiers txt
+func createScanner(fileName string) *bufio.Scanner { //Programme de création d'un scanner
+	file, err := os.Open(fileName)
+	if err != nil {
+		log.Fatalf("Error when opening file: %s", err)
+	}
+	fileScanner := bufio.NewScanner(file)
+	return fileScanner
+}
+
+// Récupération des mots des fichiers txt
+func getWords(fileScanner *bufio.Scanner, array []string) []string {
+	for fileScanner.Scan() {
+		array = append(array, fileScanner.Text())
+	}
+	return array
+}
+
+// Création du mot caché ("______")
 func hideToFindWord(word string) []string {
 	var hiddenWord []string
 	for i := 0; i < len(word); i++ {
@@ -27,7 +47,8 @@ func hideToFindWord(word string) []string {
 	return hiddenWord
 }
 
-func (user *Hangman) showToFindLetters() int { //Choix des lettres affichées dès le début
+// Choix des lettres qui sont affichées dès le début
+func (user *Hangman) showToFindLetters() int {
 	lettersToDisplay := (len(user.HiddenWord) / 2) - 1
 	var displayedLetters int
 	for i := 0; i < lettersToDisplay; i++ {
@@ -38,20 +59,4 @@ func (user *Hangman) showToFindLetters() int { //Choix des lettres affichées d�
 		user.HiddenWord[index] = string(user.WordToGuess[index])
 	}
 	return displayedLetters
-}
-
-func getWords(fileScanner *bufio.Scanner, array []string) []string { //Programme de récupération des mots du fichier txt
-	for fileScanner.Scan() {
-		array = append(array, fileScanner.Text())
-	}
-	return array
-}
-
-func createScanner(fileName string) *bufio.Scanner { //Programme de création d'un scanner
-	file, err := os.Open(fileName)
-	if err != nil {
-		log.Fatalf("Error when opening file: %s", err)
-	}
-	fileScanner := bufio.NewScanner(file)
-	return fileScanner
 }

@@ -11,7 +11,7 @@
         {{if .Win}}
             <div class="win">
                 <p>Bravo, vous avez trouvé le mot caché qui était : {{.WordToGuess}}</p>
-                <p>Si ce n'est pas déjà fais, allez vite sauver le reste de vos amis !</p>
+                <p>Grâce a vous, Alan est sain et sauf ! Allez vite sauver le reste de vos amis !</p>
             </div>
             <div class="stateBtn">
                 <a class="btn" href="/">Retour à l'accueil</a>
@@ -19,7 +19,7 @@
         {{else if .Loose}}
             <div>
                 <div class="loose">
-                    <p>Malheureusement tu n'as plus d'essais restants... Votre ami Alan est mort... Le mot caché
+                    <p>Malheureusement vous n'avez plus d'essais restants... Votre ami Alan est mort... Le mot caché
                         était : {{.WordToGuess}}</p>
                     <p>Dépêchez vous, vous avez peut-être encore une chance de sauver vos autres amis !</p>
                     <div class="hang">
